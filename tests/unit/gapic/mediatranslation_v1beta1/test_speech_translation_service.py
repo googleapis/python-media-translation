@@ -307,7 +307,7 @@ def test_speech_translation_service_client_client_options_scopes(
     client_class, transport_class, transport_name
 ):
     # Check the case scopes are provided.
-    options = client_options.ClientOptions(scopes=["1", "2"])
+    options = client_options.ClientOptions(scopes=["1", "2"],)
     with mock.patch.object(transport_class, "__init__") as patched:
         patched.return_value = None
         client = client_class(client_options=options)
@@ -380,7 +380,7 @@ def test_streaming_translate_speech(
     request_type=media_translation.StreamingTranslateSpeechRequest,
 ):
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials(), transport=transport
+        credentials=credentials.AnonymousCredentials(), transport=transport,
     )
 
     # Everything is optional in proto3 as far as the runtime is concerned,
@@ -416,7 +416,7 @@ def test_streaming_translate_speech_from_dict():
 @pytest.mark.asyncio
 async def test_streaming_translate_speech_async(transport: str = "grpc_asyncio"):
     client = SpeechTranslationServiceAsyncClient(
-        credentials=credentials.AnonymousCredentials(), transport=transport
+        credentials=credentials.AnonymousCredentials(), transport=transport,
     )
 
     # Everything is optional in proto3 as far as the runtime is concerned,
@@ -451,36 +451,37 @@ async def test_streaming_translate_speech_async(transport: str = "grpc_asyncio")
 def test_credentials_transport_error():
     # It is an error to provide credentials and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            credentials=credentials.AnonymousCredentials(), transport=transport
+            credentials=credentials.AnonymousCredentials(), transport=transport,
         )
 
     # It is an error to provide a credentials file and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            client_options={"credentials_file": "credentials.json"}, transport=transport
+            client_options={"credentials_file": "credentials.json"},
+            transport=transport,
         )
 
     # It is an error to provide scopes and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            client_options={"scopes": ["1", "2"]}, transport=transport
+            client_options={"scopes": ["1", "2"]}, transport=transport,
         )
 
 
 def test_transport_instance():
     # A client may be instantiated with a custom transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     client = SpeechTranslationServiceClient(transport=transport)
     assert client._transport is transport
@@ -489,13 +490,13 @@ def test_transport_instance():
 def test_transport_get_channel():
     # A client may be instantiated with a custom transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     channel = transport.grpc_channel
     assert channel
 
     transport = transports.SpeechTranslationServiceGrpcAsyncIOTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     channel = transport.grpc_channel
     assert channel
@@ -504,10 +505,10 @@ def test_transport_get_channel():
 def test_transport_grpc_default():
     # A client should use the gRPC transport by default.
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     assert isinstance(
-        client._transport, transports.SpeechTranslationServiceGrpcTransport
+        client._transport, transports.SpeechTranslationServiceGrpcTransport,
     )
 
 
@@ -527,7 +528,7 @@ def test_speech_translation_service_base_transport():
     ) as Transport:
         Transport.return_value = None
         transport = transports.SpeechTranslationServiceTransport(
-            credentials=credentials.AnonymousCredentials()
+            credentials=credentials.AnonymousCredentials(),
         )
 
     # Every method on the transport should just blindly
@@ -548,7 +549,7 @@ def test_speech_translation_service_base_transport_with_credentials_file():
         Transport.return_value = None
         load_creds.return_value = (credentials.AnonymousCredentials(), None)
         transport = transports.SpeechTranslationServiceTransport(
-            credentials_file="credentials.json", quota_project_id="octopus"
+            credentials_file="credentials.json", quota_project_id="octopus",
         )
         load_creds.assert_called_once_with(
             "credentials.json",

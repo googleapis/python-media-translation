@@ -197,7 +197,7 @@ class SpeechTranslationServiceGrpcTransport(SpeechTranslationServiceTransport):
         # have one.
         if not hasattr(self, "_grpc_channel"):
             self._grpc_channel = self.create_channel(
-                self._host, credentials=self._credentials
+                self._host, credentials=self._credentials,
             )
 
         # Return the channel from cache.
@@ -205,7 +205,7 @@ class SpeechTranslationServiceGrpcTransport(SpeechTranslationServiceTransport):
 
     @property
     def streaming_translate_speech(
-        self
+        self,
     ) -> Callable[
         [media_translation.StreamingTranslateSpeechRequest],
         media_translation.StreamingTranslateSpeechResponse,

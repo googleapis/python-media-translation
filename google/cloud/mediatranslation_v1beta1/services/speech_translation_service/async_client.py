@@ -90,7 +90,7 @@ class SpeechTranslationServiceAsyncClient:
         """
 
         self._client = SpeechTranslationServiceClient(
-            credentials=credentials, transport=transport, client_options=client_options
+            credentials=credentials, transport=transport, client_options=client_options,
         )
 
     def streaming_translate_speech(
@@ -140,7 +140,7 @@ class SpeechTranslationServiceAsyncClient:
         )
 
         # Send the request.
-        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -149,8 +149,8 @@ class SpeechTranslationServiceAsyncClient:
 try:
     _client_info = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution(
-            "google-cloud-media-translation"
-        ).version
+            "google-cloud-media-translation",
+        ).version,
     )
 except pkg_resources.DistributionNotFound:
     _client_info = gapic_v1.client_info.ClientInfo()
