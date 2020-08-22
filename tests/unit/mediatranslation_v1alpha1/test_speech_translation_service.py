@@ -25,13 +25,13 @@ from google import auth
 from google.api_core import client_options
 from google.api_core import grpc_helpers
 from google.auth import credentials
-from google.cloud.mediatranslation_v1beta1.services.speech_translation_service import (
+from google.cloud.mediatranslation_v1alpha1.services.speech_translation_service import (
     SpeechTranslationServiceClient,
 )
-from google.cloud.mediatranslation_v1beta1.services.speech_translation_service import (
+from google.cloud.mediatranslation_v1alpha1.services.speech_translation_service import (
     transports,
 )
-from google.cloud.mediatranslation_v1beta1.types import media_translation
+from google.cloud.mediatranslation_v1alpha1.types import media_translation
 from google.oauth2 import service_account
 from google.rpc import status_pb2 as status  # type: ignore
 
@@ -92,7 +92,7 @@ def test_speech_translation_service_client_from_service_account_file():
 def test_speech_translation_service_client_client_options():
     # Check that if channel is provided we won't create a new one.
     with mock.patch(
-        "google.cloud.mediatranslation_v1beta1.services.speech_translation_service.SpeechTranslationServiceClient.get_transport_class"
+        "google.cloud.mediatranslation_v1alpha1.services.speech_translation_service.SpeechTranslationServiceClient.get_transport_class"
     ) as gtc:
         transport = transports.SpeechTranslationServiceGrpcTransport(
             credentials=credentials.AnonymousCredentials()
@@ -103,19 +103,19 @@ def test_speech_translation_service_client_client_options():
     # Check mTLS is not triggered with empty client options.
     options = client_options.ClientOptions()
     with mock.patch(
-        "google.cloud.mediatranslation_v1beta1.services.speech_translation_service.SpeechTranslationServiceClient.get_transport_class"
+        "google.cloud.mediatranslation_v1alpha1.services.speech_translation_service.SpeechTranslationServiceClient.get_transport_class"
     ) as gtc:
         transport = gtc.return_value = mock.MagicMock()
         client = SpeechTranslationServiceClient(client_options=options)
         transport.assert_called_once_with(
-            credentials=None, host=client.DEFAULT_ENDPOINT
+            credentials=None, host=client.DEFAULT_ENDPOINT,
         )
 
     # Check mTLS is not triggered if api_endpoint is provided but
     # client_cert_source is None.
     options = client_options.ClientOptions(api_endpoint="squid.clam.whelk")
     with mock.patch(
-        "google.cloud.mediatranslation_v1beta1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
+        "google.cloud.mediatranslation_v1alpha1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
     ) as grpc_transport:
         grpc_transport.return_value = None
         client = SpeechTranslationServiceClient(client_options=options)
@@ -131,7 +131,7 @@ def test_speech_translation_service_client_client_options():
         client_cert_source=client_cert_source_callback
     )
     with mock.patch(
-        "google.cloud.mediatranslation_v1beta1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
+        "google.cloud.mediatranslation_v1alpha1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
     ) as grpc_transport:
         grpc_transport.return_value = None
         client = SpeechTranslationServiceClient(client_options=options)
@@ -147,7 +147,7 @@ def test_speech_translation_service_client_client_options():
         api_endpoint="squid.clam.whelk", client_cert_source=client_cert_source_callback
     )
     with mock.patch(
-        "google.cloud.mediatranslation_v1beta1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
+        "google.cloud.mediatranslation_v1alpha1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
     ) as grpc_transport:
         grpc_transport.return_value = None
         client = SpeechTranslationServiceClient(client_options=options)
@@ -161,7 +161,7 @@ def test_speech_translation_service_client_client_options():
 
 def test_speech_translation_service_client_client_options_from_dict():
     with mock.patch(
-        "google.cloud.mediatranslation_v1beta1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
+        "google.cloud.mediatranslation_v1alpha1.services.speech_translation_service.transports.SpeechTranslationServiceGrpcTransport.__init__"
     ) as grpc_transport:
         grpc_transport.return_value = None
         client = SpeechTranslationServiceClient(
@@ -177,7 +177,7 @@ def test_speech_translation_service_client_client_options_from_dict():
 
 def test_streaming_translate_speech(transport: str = "grpc"):
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials(), transport=transport
+        credentials=credentials.AnonymousCredentials(), transport=transport,
     )
 
     # Everything is optional in proto3 as far as the runtime is concerned,
@@ -209,18 +209,18 @@ def test_streaming_translate_speech(transport: str = "grpc"):
 def test_credentials_transport_error():
     # It is an error to provide credentials and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            credentials=credentials.AnonymousCredentials(), transport=transport
+            credentials=credentials.AnonymousCredentials(), transport=transport,
         )
 
 
 def test_transport_instance():
     # A client may be instantiated with a custom transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     client = SpeechTranslationServiceClient(transport=transport)
     assert client._transport is transport
@@ -229,17 +229,17 @@ def test_transport_instance():
 def test_transport_grpc_default():
     # A client should use the gRPC transport by default.
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     assert isinstance(
-        client._transport, transports.SpeechTranslationServiceGrpcTransport
+        client._transport, transports.SpeechTranslationServiceGrpcTransport,
     )
 
 
 def test_speech_translation_service_base_transport():
     # Instantiate the base transport.
     transport = transports.SpeechTranslationServiceTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
 
     # Every method on the transport should just blindly

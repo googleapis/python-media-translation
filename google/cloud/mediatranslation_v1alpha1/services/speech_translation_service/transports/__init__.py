@@ -29,4 +29,7 @@ _transport_registry = (
 _transport_registry["grpc"] = SpeechTranslationServiceGrpcTransport
 
 
-__all__ = ("SpeechTranslationServiceTransport", "SpeechTranslationServiceGrpcTransport")
+__all__ = (
+    "SpeechTranslationServiceTransport",
+    "SpeechTranslationServiceGrpcTransport",
+)

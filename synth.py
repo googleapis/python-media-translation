@@ -26,7 +26,7 @@ common = gcp.CommonTemplates()
 # Generate media translation GAPIC layer
 # ----------------------------------------------------------------------------
 library = gapic.py_library(
-    "mediatranslation", "v1beta1"
+    "mediatranslation", "v1alpha1"
 )
 
 s.move(library, excludes=["nox.py", "setup.py", "README.rst", "docs/index.rst"])

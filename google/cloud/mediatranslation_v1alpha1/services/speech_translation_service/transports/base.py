@@ -21,7 +21,7 @@ import typing
 from google import auth
 from google.auth import credentials  # type: ignore
 
-from google.cloud.mediatranslation_v1beta1.types import media_translation
+from google.cloud.mediatranslation_v1alpha1.types import media_translation
 
 
 class SpeechTranslationServiceTransport(metaclass=abc.ABCMeta):
@@ -60,7 +60,7 @@ class SpeechTranslationServiceTransport(metaclass=abc.ABCMeta):
 
     @property
     def streaming_translate_speech(
-        self
+        self,
     ) -> typing.Callable[
         [media_translation.StreamingTranslateSpeechRequest],
         media_translation.StreamingTranslateSpeechResponse,

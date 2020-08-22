@@ -27,7 +27,7 @@ from google.api_core import retry as retries  # type: ignore
 from google.auth import credentials  # type: ignore
 from google.oauth2 import service_account  # type: ignore
 
-from google.cloud.mediatranslation_v1beta1.types import media_translation
+from google.cloud.mediatranslation_v1alpha1.types import media_translation
 from google.rpc import status_pb2 as status  # type: ignore
 
 from .transports.base import SpeechTranslationServiceTransport
@@ -48,7 +48,7 @@ class SpeechTranslationServiceClientMeta(type):
     _transport_registry["grpc"] = SpeechTranslationServiceGrpcTransport
 
     def get_transport_class(
-        cls, label: str = None
+        cls, label: str = None,
     ) -> Type[SpeechTranslationServiceTransport]:
         """Return an appropriate transport class.
 
@@ -250,7 +250,7 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
         )
 
         # Send the request.
-        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -259,8 +259,8 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
 try:
     _client_info = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution(
-            "google-cloud-media-translation"
-        ).version
+            "google-cloud-media-translation",
+        ).version,
     )
 except pkg_resources.DistributionNotFound:
     _client_info = gapic_v1.client_info.ClientInfo()

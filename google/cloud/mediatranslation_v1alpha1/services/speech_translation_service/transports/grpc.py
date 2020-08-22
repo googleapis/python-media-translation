@@ -24,7 +24,7 @@ from google.auth.transport.grpc import SslCredentials  # type: ignore
 
 import grpc  # type: ignore
 
-from google.cloud.mediatranslation_v1beta1.types import media_translation
+from google.cloud.mediatranslation_v1alpha1.types import media_translation
 
 from .base import SpeechTranslationServiceTransport
 
@@ -147,7 +147,7 @@ class SpeechTranslationServiceGrpcTransport(SpeechTranslationServiceTransport):
         # have one.
         if not hasattr(self, "_grpc_channel"):
             self._grpc_channel = self.create_channel(
-                self._host, credentials=self._credentials
+                self._host, credentials=self._credentials,
             )
 
         # Return the channel from cache.
@@ -155,7 +155,7 @@ class SpeechTranslationServiceGrpcTransport(SpeechTranslationServiceTransport):
 
     @property
     def streaming_translate_speech(
-        self
+        self,
     ) -> Callable[
         [media_translation.StreamingTranslateSpeechRequest],
         media_translation.StreamingTranslateSpeechResponse,
@@ -178,7 +178,7 @@ class SpeechTranslationServiceGrpcTransport(SpeechTranslationServiceTransport):
         # to pass in the functions for each.
         if "streaming_translate_speech" not in self._stubs:
             self._stubs["streaming_translate_speech"] = self.grpc_channel.stream_stream(
-                "/google.cloud.mediatranslation.v1beta1.SpeechTranslationService/StreamingTranslateSpeech",
+                "/google.cloud.mediatranslation.v1alpha1.SpeechTranslationService/StreamingTranslateSpeech",
                 request_serializer=media_translation.StreamingTranslateSpeechRequest.serialize,
                 response_deserializer=media_translation.StreamingTranslateSpeechResponse.deserialize,
             )
