@@ -107,7 +107,7 @@ class StreamingTranslateSpeechConfig(proto.Message):
             previous response is true).
     """
 
-    audio_config = proto.Field(proto.MESSAGE, number=1, message=TranslateSpeechConfig)
+    audio_config = proto.Field(proto.MESSAGE, number=1, message=TranslateSpeechConfig,)
     single_utterance = proto.Field(proto.BOOL, number=2)
 
 
@@ -140,7 +140,7 @@ class StreamingTranslateSpeechRequest(proto.Message):
     """
 
     streaming_config = proto.Field(
-        proto.MESSAGE, number=1, message=StreamingTranslateSpeechConfig
+        proto.MESSAGE, number=1, message=StreamingTranslateSpeechConfig,
     )
     audio_content = proto.Field(proto.BYTES, number=2)
 
@@ -188,7 +188,7 @@ class StreamingTranslateSpeechResult(proto.Message):
         detected_source_language_code = proto.Field(proto.STRING, number=3)
 
     text_translation_result = proto.Field(
-        proto.MESSAGE, number=1, message=TextTranslationResult
+        proto.MESSAGE, number=1, message=TextTranslationResult,
     )
     recognition_result = proto.Field(proto.STRING, number=3)
 
@@ -215,11 +215,11 @@ class StreamingTranslateSpeechResponse(proto.Message):
         SPEECH_EVENT_TYPE_UNSPECIFIED = 0
         END_OF_SINGLE_UTTERANCE = 1
 
-    error = proto.Field(proto.MESSAGE, number=1, message=status.Status)
+    error = proto.Field(proto.MESSAGE, number=1, message=status.Status,)
     result = proto.Field(
-        proto.MESSAGE, number=2, message=StreamingTranslateSpeechResult
+        proto.MESSAGE, number=2, message=StreamingTranslateSpeechResult,
     )
-    speech_event_type = proto.Field(proto.ENUM, number=3, enum=SpeechEventType)
+    speech_event_type = proto.Field(proto.ENUM, number=3, enum=SpeechEventType,)
 
 
 __all__ = tuple(sorted(__protobuf__.manifest))

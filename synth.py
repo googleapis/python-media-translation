@@ -25,11 +25,14 @@ common = gcp.CommonTemplates()
 # ----------------------------------------------------------------------------
 # Generate media translation GAPIC layer
 # ----------------------------------------------------------------------------
-library = gapic.py_library(
-    "mediatranslation", "v1beta1"
-)
+versions = ["v1alpha1", "v1beta1"]
 
-s.move(library, excludes=["nox.py", "setup.py", "README.rst", "docs/index.rst"])
+for version in versions:
+    library = gapic.py_library(
+        "mediatranslation", version
+    )
+
+    s.move(library, excludes=["nox.py", "setup.py", "README.rst", "docs/index.rst"])
 
 # correct license headers
 python.fix_pb2_headers()
@@ -47,8 +50,8 @@ s.move(templated_files, excludes=[".coveragerc"])  # the microgenerator has a go
 s.replace(".gitignore", "bigquery/docs/generated", "htmlcov")  # temporary hack to ignore htmlcov
 
 # Remove 2.7 and 3.5 tests from noxfile.py
-s.replace("noxfile.py", '''\["2\.7", ''', '[')
-s.replace("noxfile.py", '''"3.5", ''', '')
+s.replace("noxfile.py", '"2.7",', '')
+s.replace("noxfile.py", '"3.5",', '')
 
 # Expand flake errors permitted to accomodate the Microgenerator
 # TODO: remove extra error codes once issues below are resolved

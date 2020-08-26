@@ -60,7 +60,7 @@ class SpeechTranslationServiceTransport(metaclass=abc.ABCMeta):
 
     @property
     def streaming_translate_speech(
-        self
+        self,
     ) -> typing.Callable[
         [media_translation.StreamingTranslateSpeechRequest],
         media_translation.StreamingTranslateSpeechResponse,

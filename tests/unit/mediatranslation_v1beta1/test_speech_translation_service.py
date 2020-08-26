@@ -108,7 +108,7 @@ def test_speech_translation_service_client_client_options():
         transport = gtc.return_value = mock.MagicMock()
         client = SpeechTranslationServiceClient(client_options=options)
         transport.assert_called_once_with(
-            credentials=None, host=client.DEFAULT_ENDPOINT
+            credentials=None, host=client.DEFAULT_ENDPOINT,
         )
 
     # Check mTLS is not triggered if api_endpoint is provided but
@@ -177,7 +177,7 @@ def test_speech_translation_service_client_client_options_from_dict():
 
 def test_streaming_translate_speech(transport: str = "grpc"):
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials(), transport=transport
+        credentials=credentials.AnonymousCredentials(), transport=transport,
     )
 
     # Everything is optional in proto3 as far as the runtime is concerned,
@@ -209,18 +209,18 @@ def test_streaming_translate_speech(transport: str = "grpc"):
 def test_credentials_transport_error():
     # It is an error to provide credentials and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            credentials=credentials.AnonymousCredentials(), transport=transport
+            credentials=credentials.AnonymousCredentials(), transport=transport,
         )
 
 
 def test_transport_instance():
     # A client may be instantiated with a custom transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     client = SpeechTranslationServiceClient(transport=transport)
     assert client._transport is transport
@@ -229,17 +229,17 @@ def test_transport_instance():
 def test_transport_grpc_default():
     # A client should use the gRPC transport by default.
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     assert isinstance(
-        client._transport, transports.SpeechTranslationServiceGrpcTransport
+        client._transport, transports.SpeechTranslationServiceGrpcTransport,
     )
 
 
 def test_speech_translation_service_base_transport():
     # Instantiate the base transport.
     transport = transports.SpeechTranslationServiceTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
 
     # Every method on the transport should just blindly
