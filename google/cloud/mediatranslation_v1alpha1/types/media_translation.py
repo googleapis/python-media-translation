@@ -117,10 +117,15 @@ class TranslateSpeechConfig(proto.Message):
     """
 
     audio_encoding = proto.Field(proto.STRING, number=1)
+
     source_language_code = proto.Field(proto.STRING, number=2)
+
     target_language_code = proto.Field(proto.STRING, number=3)
+
     alternative_source_language_codes = proto.RepeatedField(proto.STRING, number=6)
+
     sample_rate_hertz = proto.Field(proto.INT32, number=4)
+
     model = proto.Field(proto.STRING, number=5)
 
 
@@ -200,9 +205,13 @@ class StreamingTranslateSpeechConfig(proto.Message):
     """
 
     audio_config = proto.Field(proto.MESSAGE, number=1, message=TranslateSpeechConfig,)
+
     single_utterance = proto.Field(proto.BOOL, number=2)
+
     stability = proto.Field(proto.STRING, number=3)
+
     translation_mode = proto.Field(proto.STRING, number=4)
+
     disable_interim_results = proto.Field(proto.BOOL, number=5)
 
 
@@ -235,9 +244,13 @@ class StreamingTranslateSpeechRequest(proto.Message):
     """
 
     streaming_config = proto.Field(
-        proto.MESSAGE, number=1, message=StreamingTranslateSpeechConfig,
+        proto.MESSAGE,
+        number=1,
+        oneof="streaming_request",
+        message=StreamingTranslateSpeechConfig,
     )
-    audio_content = proto.Field(proto.BYTES, number=2)
+
+    audio_content = proto.Field(proto.BYTES, number=2, oneof="streaming_request")
 
 
 class StreamingTranslateSpeechResult(proto.Message):
@@ -276,6 +289,7 @@ class StreamingTranslateSpeechResult(proto.Message):
         """
 
         translation = proto.Field(proto.STRING, number=1)
+
         is_final = proto.Field(proto.BOOL, number=2)
 
     class AudioTranslationResult(proto.Message):
@@ -291,10 +305,13 @@ class StreamingTranslateSpeechResult(proto.Message):
     text_translation_result = proto.Field(
         proto.MESSAGE, number=1, message=TextTranslationResult,
     )
+
     audio_translation_result = proto.Field(
         proto.MESSAGE, number=2, message=AudioTranslationResult,
     )
+
     recognition_result = proto.Field(proto.STRING, number=3)
+
     detected_source_language_code = proto.Field(proto.STRING, number=4)
 
 
@@ -326,9 +343,11 @@ class StreamingTranslateSpeechResponse(proto.Message):
         END_OF_SINGLE_UTTERANCE = 1
 
     error = proto.Field(proto.MESSAGE, number=1, message=status.Status,)
+
     result = proto.Field(
         proto.MESSAGE, number=2, message=StreamingTranslateSpeechResult,
     )
+
     speech_event_type = proto.Field(proto.ENUM, number=3, enum=SpeechEventType,)
 
 
