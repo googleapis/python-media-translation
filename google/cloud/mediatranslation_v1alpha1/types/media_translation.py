@@ -244,10 +244,13 @@ class StreamingTranslateSpeechRequest(proto.Message):
     """
 
     streaming_config = proto.Field(
-        proto.MESSAGE, number=1, message=StreamingTranslateSpeechConfig,
+        proto.MESSAGE,
+        number=1,
+        oneof="streaming_request",
+        message=StreamingTranslateSpeechConfig,
     )
 
-    audio_content = proto.Field(proto.BYTES, number=2)
+    audio_content = proto.Field(proto.BYTES, number=2, oneof="streaming_request")
 
 
 class StreamingTranslateSpeechResult(proto.Message):
