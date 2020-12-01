@@ -18,4 +18,7 @@
 from .client import SpeechTranslationServiceClient
 from .async_client import SpeechTranslationServiceAsyncClient
 
-__all__ = ("SpeechTranslationServiceClient", "SpeechTranslationServiceAsyncClient")
+__all__ = (
+    "SpeechTranslationServiceClient",
+    "SpeechTranslationServiceAsyncClient",
+)

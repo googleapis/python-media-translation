@@ -231,7 +231,7 @@ class SpeechTranslationServiceGrpcTransport(SpeechTranslationServiceTransport):
 
     @property
     def streaming_translate_speech(
-        self
+        self,
     ) -> Callable[
         [media_translation.StreamingTranslateSpeechRequest],
         media_translation.StreamingTranslateSpeechResponse,

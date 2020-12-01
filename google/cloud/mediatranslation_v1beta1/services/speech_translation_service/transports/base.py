@@ -31,8 +31,8 @@ from google.cloud.mediatranslation_v1beta1.types import media_translation
 try:
     DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution(
-            "google-cloud-media-translation"
-        ).version
+            "google-cloud-media-translation",
+        ).version,
     )
 except pkg_resources.DistributionNotFound:
     DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo()
@@ -110,12 +110,12 @@ class SpeechTranslationServiceTransport(abc.ABC):
                 self.streaming_translate_speech,
                 default_timeout=None,
                 client_info=client_info,
-            )
+            ),
         }
 
     @property
     def streaming_translate_speech(
-        self
+        self,
     ) -> typing.Callable[
         [media_translation.StreamingTranslateSpeechRequest],
         typing.Union[

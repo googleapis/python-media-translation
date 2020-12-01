@@ -235,7 +235,7 @@ class SpeechTranslationServiceGrpcAsyncIOTransport(SpeechTranslationServiceTrans
 
     @property
     def streaming_translate_speech(
-        self
+        self,
     ) -> Callable[
         [media_translation.StreamingTranslateSpeechRequest],
         Awaitable[media_translation.StreamingTranslateSpeechResponse],
