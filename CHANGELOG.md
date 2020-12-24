@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.1](https://www.github.com/googleapis/python-media-translation/compare/v0.2.0...v0.2.1) (2020-12-24)
+
+
+### Documentation
+
+* fix product documentation url ([#19](https://www.github.com/googleapis/python-media-translation/issues/19)) ([0aae986](https://www.github.com/googleapis/python-media-translation/commit/0aae986b41e8326995f51d3e1f129f28c524b151))
+
 ## [0.2.0](https://www.github.com/googleapis/python-media-translation/compare/v0.1.1...v0.2.0) (2020-05-28)
 
 
