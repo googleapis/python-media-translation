@@ -403,7 +403,7 @@ def test_speech_translation_service_client_client_options_scopes(
     client_class, transport_class, transport_name
 ):
     # Check the case scopes are provided.
-    options = client_options.ClientOptions(scopes=["1", "2"])
+    options = client_options.ClientOptions(scopes=["1", "2"],)
     with mock.patch.object(transport_class, "__init__") as patched:
         patched.return_value = None
         client = client_class(client_options=options)
@@ -476,7 +476,7 @@ def test_streaming_translate_speech(
     request_type=media_translation.StreamingTranslateSpeechRequest,
 ):
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials(), transport=transport
+        credentials=credentials.AnonymousCredentials(), transport=transport,
     )
 
     # Everything is optional in proto3 as far as the runtime is concerned,
@@ -515,7 +515,7 @@ async def test_streaming_translate_speech_async(
     request_type=media_translation.StreamingTranslateSpeechRequest,
 ):
     client = SpeechTranslationServiceAsyncClient(
-        credentials=credentials.AnonymousCredentials(), transport=transport
+        credentials=credentials.AnonymousCredentials(), transport=transport,
     )
 
     # Everything is optional in proto3 as far as the runtime is concerned,
@@ -555,36 +555,37 @@ async def test_streaming_translate_speech_async_from_dict():
 def test_credentials_transport_error():
     # It is an error to provide credentials and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            credentials=credentials.AnonymousCredentials(), transport=transport
+            credentials=credentials.AnonymousCredentials(), transport=transport,
         )
 
     # It is an error to provide a credentials file and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            client_options={"credentials_file": "credentials.json"}, transport=transport
+            client_options={"credentials_file": "credentials.json"},
+            transport=transport,
         )
 
     # It is an error to provide scopes and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     with pytest.raises(ValueError):
         client = SpeechTranslationServiceClient(
-            client_options={"scopes": ["1", "2"]}, transport=transport
+            client_options={"scopes": ["1", "2"]}, transport=transport,
         )
 
 
 def test_transport_instance():
     # A client may be instantiated with a custom transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     client = SpeechTranslationServiceClient(transport=transport)
     assert client.transport is transport
@@ -593,13 +594,13 @@ def test_transport_instance():
 def test_transport_get_channel():
     # A client may be instantiated with a custom transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     channel = transport.grpc_channel
     assert channel
 
     transport = transports.SpeechTranslationServiceGrpcAsyncIOTransport(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     channel = transport.grpc_channel
     assert channel
@@ -623,10 +624,10 @@ def test_transport_adc(transport_class):
 def test_transport_grpc_default():
     # A client should use the gRPC transport by default.
     client = SpeechTranslationServiceClient(
-        credentials=credentials.AnonymousCredentials()
+        credentials=credentials.AnonymousCredentials(),
     )
     assert isinstance(
-        client.transport, transports.SpeechTranslationServiceGrpcTransport
+        client.transport, transports.SpeechTranslationServiceGrpcTransport,
     )
 
 
@@ -646,7 +647,7 @@ def test_speech_translation_service_base_transport():
     ) as Transport:
         Transport.return_value = None
         transport = transports.SpeechTranslationServiceTransport(
-            credentials=credentials.AnonymousCredentials()
+            credentials=credentials.AnonymousCredentials(),
         )
 
     # Every method on the transport should just blindly
@@ -667,7 +668,7 @@ def test_speech_translation_service_base_transport_with_credentials_file():
         Transport.return_value = None
         load_creds.return_value = (credentials.AnonymousCredentials(), None)
         transport = transports.SpeechTranslationServiceTransport(
-            credentials_file="credentials.json", quota_project_id="octopus"
+            credentials_file="credentials.json", quota_project_id="octopus",
         )
         load_creds.assert_called_once_with(
             "credentials.json",
@@ -737,7 +738,7 @@ def test_speech_translation_service_grpc_transport_channel():
 
     # Check that channel is used if provided.
     transport = transports.SpeechTranslationServiceGrpcTransport(
-        host="squid.clam.whelk", channel=channel
+        host="squid.clam.whelk", channel=channel,
     )
     assert transport.grpc_channel == channel
     assert transport._host == "squid.clam.whelk:443"
@@ -749,7 +750,7 @@ def test_speech_translation_service_grpc_asyncio_transport_channel():
 
     # Check that channel is used if provided.
     transport = transports.SpeechTranslationServiceGrpcAsyncIOTransport(
-        host="squid.clam.whelk", channel=channel
+        host="squid.clam.whelk", channel=channel,
     )
     assert transport.grpc_channel == channel
     assert transport._host == "squid.clam.whelk:443"
@@ -764,7 +765,7 @@ def test_speech_translation_service_grpc_asyncio_transport_channel():
     ],
 )
 def test_speech_translation_service_transport_channel_mtls_with_client_cert_source(
-    transport_class
+    transport_class,
 ):
     with mock.patch(
         "grpc.ssl_channel_credentials", autospec=True
@@ -799,6 +800,10 @@ def test_speech_translation_service_transport_channel_mtls_with_client_cert_sour
                 scopes=("https://www.googleapis.com/auth/cloud-platform",),
                 ssl_credentials=mock_ssl_cred,
                 quota_project_id=None,
+                options=[
+                    ("grpc.max_send_message_length", -1),
+                    ("grpc.max_receive_message_length", -1),
+                ],
             )
             assert transport.grpc_channel == mock_grpc_channel
             assert transport._ssl_channel_credentials == mock_ssl_cred
@@ -840,6 +845,10 @@ def test_speech_translation_service_transport_channel_mtls_with_adc(transport_cl
                 scopes=("https://www.googleapis.com/auth/cloud-platform",),
                 ssl_credentials=mock_ssl_cred,
                 quota_project_id=None,
+                options=[
+                    ("grpc.max_send_message_length", -1),
+                    ("grpc.max_receive_message_length", -1),
+                ],
             )
             assert transport.grpc_channel == mock_grpc_channel
 
@@ -848,14 +857,16 @@ def test_common_billing_account_path():
     billing_account = "squid"
 
     expected = "billingAccounts/{billing_account}".format(
-        billing_account=billing_account
+        billing_account=billing_account,
     )
     actual = SpeechTranslationServiceClient.common_billing_account_path(billing_account)
     assert expected == actual
 
 
 def test_parse_common_billing_account_path():
-    expected = {"billing_account": "clam"}
+    expected = {
+        "billing_account": "clam",
+    }
     path = SpeechTranslationServiceClient.common_billing_account_path(**expected)
 
     # Check that the path construction is reversible.
@@ -866,13 +877,15 @@ def test_parse_common_billing_account_path():
 def test_common_folder_path():
     folder = "whelk"
 
-    expected = "folders/{folder}".format(folder=folder)
+    expected = "folders/{folder}".format(folder=folder,)
     actual = SpeechTranslationServiceClient.common_folder_path(folder)
     assert expected == actual
 
 
 def test_parse_common_folder_path():
-    expected = {"folder": "octopus"}
+    expected = {
+        "folder": "octopus",
+    }
     path = SpeechTranslationServiceClient.common_folder_path(**expected)
 
     # Check that the path construction is reversible.
@@ -883,13 +896,15 @@ def test_parse_common_folder_path():
 def test_common_organization_path():
     organization = "oyster"
 
-    expected = "organizations/{organization}".format(organization=organization)
+    expected = "organizations/{organization}".format(organization=organization,)
     actual = SpeechTranslationServiceClient.common_organization_path(organization)
     assert expected == actual
 
 
 def test_parse_common_organization_path():
-    expected = {"organization": "nudibranch"}
+    expected = {
+        "organization": "nudibranch",
+    }
     path = SpeechTranslationServiceClient.common_organization_path(**expected)
 
     # Check that the path construction is reversible.
@@ -900,13 +915,15 @@ def test_parse_common_organization_path():
 def test_common_project_path():
     project = "cuttlefish"
 
-    expected = "projects/{project}".format(project=project)
+    expected = "projects/{project}".format(project=project,)
     actual = SpeechTranslationServiceClient.common_project_path(project)
     assert expected == actual
 
 
 def test_parse_common_project_path():
-    expected = {"project": "mussel"}
+    expected = {
+        "project": "mussel",
+    }
     path = SpeechTranslationServiceClient.common_project_path(**expected)
 
     # Check that the path construction is reversible.
@@ -919,14 +936,17 @@ def test_common_location_path():
     location = "nautilus"
 
     expected = "projects/{project}/locations/{location}".format(
-        project=project, location=location
+        project=project, location=location,
     )
     actual = SpeechTranslationServiceClient.common_location_path(project, location)
     assert expected == actual
 
 
 def test_parse_common_location_path():
-    expected = {"project": "scallop", "location": "abalone"}
+    expected = {
+        "project": "scallop",
+        "location": "abalone",
+    }
     path = SpeechTranslationServiceClient.common_location_path(**expected)
 
     # Check that the path construction is reversible.
@@ -941,7 +961,7 @@ def test_client_withDEFAULT_CLIENT_INFO():
         transports.SpeechTranslationServiceTransport, "_prep_wrapped_messages"
     ) as prep:
         client = SpeechTranslationServiceClient(
-            credentials=credentials.AnonymousCredentials(), client_info=client_info
+            credentials=credentials.AnonymousCredentials(), client_info=client_info,
         )
         prep.assert_called_once_with(client_info)
 
@@ -950,6 +970,6 @@ def test_client_withDEFAULT_CLIENT_INFO():
     ) as prep:
         transport_class = SpeechTranslationServiceClient.get_transport_class()
         transport = transport_class(
-            credentials=credentials.AnonymousCredentials(), client_info=client_info
+            credentials=credentials.AnonymousCredentials(), client_info=client_info,
         )
         prep.assert_called_once_with(client_info)

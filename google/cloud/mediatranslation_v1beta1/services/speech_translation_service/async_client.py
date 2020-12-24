@@ -193,12 +193,12 @@ class SpeechTranslationServiceAsyncClient:
         # and friendly error handling.
         rpc = gapic_v1.method_async.wrap_method(
             self._client._transport.streaming_translate_speech,
-            default_timeout=None,
+            default_timeout=400.0,
             client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
-        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -207,8 +207,8 @@ class SpeechTranslationServiceAsyncClient:
 try:
     DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution(
-            "google-cloud-media-translation"
-        ).version
+            "google-cloud-media-translation",
+        ).version,
     )
 except pkg_resources.DistributionNotFound:
     DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo()

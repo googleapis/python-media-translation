@@ -65,7 +65,7 @@ class SpeechTranslationServiceClientMeta(type):
     _transport_registry["grpc_asyncio"] = SpeechTranslationServiceGrpcAsyncIOTransport
 
     def get_transport_class(
-        cls, label: str = None
+        cls, label: str = None,
     ) -> Type[SpeechTranslationServiceTransport]:
         """Return an appropriate transport class.
 
@@ -155,7 +155,7 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
     def common_billing_account_path(billing_account: str,) -> str:
         """Return a fully-qualified billing_account string."""
         return "billingAccounts/{billing_account}".format(
-            billing_account=billing_account
+            billing_account=billing_account,
         )
 
     @staticmethod
@@ -167,7 +167,7 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
     @staticmethod
     def common_folder_path(folder: str,) -> str:
         """Return a fully-qualified folder string."""
-        return "folders/{folder}".format(folder=folder)
+        return "folders/{folder}".format(folder=folder,)
 
     @staticmethod
     def parse_common_folder_path(path: str) -> Dict[str, str]:
@@ -178,7 +178,7 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
     @staticmethod
     def common_organization_path(organization: str,) -> str:
         """Return a fully-qualified organization string."""
-        return "organizations/{organization}".format(organization=organization)
+        return "organizations/{organization}".format(organization=organization,)
 
     @staticmethod
     def parse_common_organization_path(path: str) -> Dict[str, str]:
@@ -189,7 +189,7 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
     @staticmethod
     def common_project_path(project: str,) -> str:
         """Return a fully-qualified project string."""
-        return "projects/{project}".format(project=project)
+        return "projects/{project}".format(project=project,)
 
     @staticmethod
     def parse_common_project_path(path: str) -> Dict[str, str]:
@@ -198,10 +198,10 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
         return m.groupdict() if m else {}
 
     @staticmethod
-    def common_location_path(project: str, location: str) -> str:
+    def common_location_path(project: str, location: str,) -> str:
         """Return a fully-qualified location string."""
         return "projects/{project}/locations/{location}".format(
-            project=project, location=location
+            project=project, location=location,
         )
 
     @staticmethod
@@ -370,7 +370,7 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
         ]
 
         # Send the request.
-        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata)
+        response = rpc(requests, retry=retry, timeout=timeout, metadata=metadata,)
 
         # Done; return the response.
         return response
@@ -379,8 +379,8 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
 try:
     DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution(
-            "google-cloud-media-translation"
-        ).version
+            "google-cloud-media-translation",
+        ).version,
     )
 except pkg_resources.DistributionNotFound:
     DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo()
