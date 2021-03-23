@@ -4,15 +4,15 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/python-media-translation.git",
-        "sha": "cb77463b297c2fcf194b714281ed82450b1594d3"
+        "sha": "905e5f65a3b8a9759ca04b1f14501f43f8656c34"
       }
     },
     {
       "git": {
         "name": "googleapis",
         "remote": "https://github.com/googleapis/googleapis.git",
-        "sha": "b241bbc1ad920771707fe03e4cedd4e8c492e143",
-        "internalRef": "350670798"
+        "sha": "20712b8fe95001b312f62c6c5f33e3e3ec92cfaf",
+        "internalRef": "354996675"
       }
     },
     {
