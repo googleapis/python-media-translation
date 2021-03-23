@@ -4,7 +4,7 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/python-media-translation.git",
-        "sha": "905e5f65a3b8a9759ca04b1f14501f43f8656c34"
+        "sha": "cb77463b297c2fcf194b714281ed82450b1594d3"
       }
     },
     {
