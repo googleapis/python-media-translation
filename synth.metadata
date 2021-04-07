@@ -4,7 +4,7 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/python-media-translation.git",
-        "sha": "b0bc4b2b03d9e13513848a76cdb6b2ad950cf5e5"
+        "sha": "e80d23e0680e8cdf2f6a4322189ef90ada1e3362"
       }
     },
     {
@@ -119,6 +119,7 @@
     "google/cloud/mediatranslation_v1beta1/services/speech_translation_service/transports/grpc_asyncio.py",
     "google/cloud/mediatranslation_v1beta1/types/__init__.py",
     "google/cloud/mediatranslation_v1beta1/types/media_translation.py",
+    "mediatranslation-v1beta1-py.tar.gz",
     "mypy.ini",
     "noxfile.py",
     "renovate.json",
