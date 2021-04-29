@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 from collections import OrderedDict
 import functools
 import re
@@ -39,7 +37,6 @@ from google.oauth2 import service_account  # type: ignore
 
 from google.cloud.mediatranslation_v1beta1.types import media_translation
 from google.rpc import status_pb2 as status  # type: ignore
-
 from .transports.base import SpeechTranslationServiceTransport, DEFAULT_CLIENT_INFO
 from .transports.grpc_asyncio import SpeechTranslationServiceGrpcAsyncIOTransport
 from .client import SpeechTranslationServiceClient
@@ -59,26 +56,22 @@ class SpeechTranslationServiceAsyncClient:
     parse_common_billing_account_path = staticmethod(
         SpeechTranslationServiceClient.parse_common_billing_account_path
     )
-
     common_folder_path = staticmethod(SpeechTranslationServiceClient.common_folder_path)
     parse_common_folder_path = staticmethod(
         SpeechTranslationServiceClient.parse_common_folder_path
     )
-
     common_organization_path = staticmethod(
         SpeechTranslationServiceClient.common_organization_path
     )
     parse_common_organization_path = staticmethod(
         SpeechTranslationServiceClient.parse_common_organization_path
     )
-
     common_project_path = staticmethod(
         SpeechTranslationServiceClient.common_project_path
     )
     parse_common_project_path = staticmethod(
         SpeechTranslationServiceClient.parse_common_project_path
     )
-
     common_location_path = staticmethod(
         SpeechTranslationServiceClient.common_location_path
     )
@@ -172,7 +165,6 @@ class SpeechTranslationServiceAsyncClient:
             google.auth.exceptions.MutualTlsChannelError: If mutual TLS transport
                 creation failed for any reason.
         """
-
         self._client = SpeechTranslationServiceClient(
             credentials=credentials,
             transport=transport,
