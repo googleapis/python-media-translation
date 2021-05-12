@@ -13,18 +13,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from .media_translation import (
-    StreamingTranslateSpeechConfig,
-    StreamingTranslateSpeechRequest,
-    StreamingTranslateSpeechResponse,
-    StreamingTranslateSpeechResult,
-    TranslateSpeechConfig,
-)
-
-__all__ = (
-    'StreamingTranslateSpeechConfig',
-    'StreamingTranslateSpeechRequest',
-    'StreamingTranslateSpeechResponse',
-    'StreamingTranslateSpeechResult',
-    'TranslateSpeechConfig',
-)
