@@ -120,10 +120,8 @@ def listen_print_loop(responses):
 
         result = response.result
         translation = result.text_translation_result.translation
-        source = result.recognition_result
 
         print(u'\nPartial translation: {0}'.format(translation))
-        print(u'Partial recognition result: {0}'.format(source))
 
 
 def do_translation_loop():
@@ -142,13 +140,12 @@ def do_translation_loop():
     # The first request contains the configuration.
     # Note that audio_content is explicitly set to None.
     first_request = media.StreamingTranslateSpeechRequest(
-        streaming_config=config, audio_content=None)
+        streaming_config=config)
 
     with MicrophoneStream(RATE, CHUNK) as stream:
         audio_generator = stream.generator()
         mic_requests = (media.StreamingTranslateSpeechRequest(
-            audio_content=content,
-            streaming_config=config)
+            audio_content=content)
             for content in audio_generator)
 
         requests = itertools.chain(iter([first_request]), mic_requests)
