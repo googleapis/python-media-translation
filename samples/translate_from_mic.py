@@ -107,7 +107,6 @@ def listen_print_loop(responses):
     is provided by the server.
     """
     translation = ''
-    source = ''
     for response in responses:
         # Once the transcription settles, the response contains the
         # END_OF_SINGLE_UTTERANCE event.
@@ -115,7 +114,6 @@ def listen_print_loop(responses):
                 SpeechEventType.END_OF_SINGLE_UTTERANCE):
 
             print(u'\nFinal translation: {0}'.format(translation))
-            print(u'Final recognition result: {0}'.format(source))
             return 0
 
         result = response.result
