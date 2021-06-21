@@ -18,7 +18,7 @@ Example usage:
     python translate_from_mic.py
 """
 
-# [START media_translation_translate_from_mic]
+# [START mediatranslation_translate_from_mic]
 from __future__ import division
 
 import itertools
@@ -169,4 +169,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-# [END media_translation_translate_from_mic]
+# [END mediatranslation_translate_from_mic]

@@ -18,7 +18,7 @@ Example usage:
     python translate_from_file.py resources/audio.raw
 """
 
-# [START media_translation_translate_from_file]
+# [START mediatranslation_translate_from_file]
 from google.cloud import mediatranslation
 
 
@@ -68,4 +68,4 @@ def translate_from_file(file_path="path/to/your/file"):
             break
 
         print("\nPartial translation: {0}".format(translation))
-    # [END media_translation_translate_from_file]
+    # [END mediatranslation_translate_from_file]
