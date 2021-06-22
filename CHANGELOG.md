@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.4.1](https://www.github.com/googleapis/python-media-translation/compare/v0.4.0...v0.4.1) (2021-06-22)
+
+
+### Documentation
+
+* omit mention of Python 2.7 in 'CONTRIBUTING.rst' ([#1127](https://www.github.com/googleapis/python-media-translation/issues/1127)) ([#69](https://www.github.com/googleapis/python-media-translation/issues/69)) ([d77ac0d](https://www.github.com/googleapis/python-media-translation/commit/d77ac0d6af1b278c8285c537a3a28fdf6491ceea)), closes [#1126](https://www.github.com/googleapis/python-media-translation/issues/1126)
+
 ## [0.4.0](https://www.github.com/googleapis/python-media-translation/compare/v0.3.0...v0.4.0) (2021-05-27)
 
 
