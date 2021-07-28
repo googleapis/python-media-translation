@@ -3,7 +3,7 @@
 ### [0.5.3](https://www.github.com/googleapis/python-media-translation/compare/v0.5.2...v0.5.3) (2021-07-28)
 
 
-### Features
+### Documentation
 
 * add Samples section to CONTRIBUTING.rst ([#87](https://www.github.com/googleapis/python-media-translation/issues/87)) ([0970f66](https://www.github.com/googleapis/python-media-translation/commit/0970f66d153ae5b4f4457b3b5447d6ae02065739))
 
