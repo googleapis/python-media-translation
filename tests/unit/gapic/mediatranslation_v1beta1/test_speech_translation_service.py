@@ -1008,7 +1008,6 @@ def test_speech_translation_service_transport_auth_adc(transport_class):
     [
         transports.SpeechTranslationServiceGrpcTransport,
         transports.SpeechTranslationServiceGrpcAsyncIOTransport,
-        transports.SpeechTranslationServiceRestTransport,
     ],
 )
 def test_speech_translation_service_transport_auth_gdch_credentials(transport_class):
