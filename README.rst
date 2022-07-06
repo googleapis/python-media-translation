@@ -3,7 +3,7 @@ Python Client for Media Translation API
 
 |preview| |pypi| |versions|
 
-`Media Translation API`_: 
+`Media Translation API`_: provides enterprise quality translation from/to various media types.
 
 - `Client Library Documentation`_
 - `Product Documentation`_
