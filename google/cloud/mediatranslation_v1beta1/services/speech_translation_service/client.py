@@ -51,7 +51,6 @@ from google.cloud.mediatranslation_v1beta1.types import media_translation
 from .transports.base import DEFAULT_CLIENT_INFO, SpeechTranslationServiceTransport
 from .transports.grpc import SpeechTranslationServiceGrpcTransport
 from .transports.grpc_asyncio import SpeechTranslationServiceGrpcAsyncIOTransport
-from .transports.rest import SpeechTranslationServiceRestTransport
 
 
 class SpeechTranslationServiceClientMeta(type):
@@ -67,7 +66,6 @@ class SpeechTranslationServiceClientMeta(type):
     )  # type: Dict[str, Type[SpeechTranslationServiceTransport]]
     _transport_registry["grpc"] = SpeechTranslationServiceGrpcTransport
     _transport_registry["grpc_asyncio"] = SpeechTranslationServiceGrpcAsyncIOTransport
-    _transport_registry["rest"] = SpeechTranslationServiceRestTransport
 
     def get_transport_class(
         cls,
@@ -339,9 +337,6 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
             transport (Union[str, SpeechTranslationServiceTransport]): The
                 transport to use. If set to None, a transport is chosen
                 automatically.
-                NOTE: "rest" transport functionality is currently in a
-                beta state (preview). We welcome your feedback via an
-                issue in this library's source repository.
             client_options (google.api_core.client_options.ClientOptions): Custom options for the
                 client. It won't take effect if a ``transport`` instance is provided.
                 (1) The ``api_endpoint`` property can be used to override the
