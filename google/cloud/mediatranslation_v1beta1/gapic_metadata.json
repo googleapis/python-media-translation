@@ -26,6 +26,16 @@
               ]
             }
           }
+        },
+        "rest": {
+          "libraryClient": "SpeechTranslationServiceClient",
+          "rpcs": {
+            "StreamingTranslateSpeech": {
+              "methods": [
+                "streaming_translate_speech"
+              ]
+            }
+          }
         }
       }
     }

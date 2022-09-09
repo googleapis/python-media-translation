@@ -22,6 +22,8 @@ try:
 except ImportError:  # pragma: NO COVER
     import mock
 
+from collections.abc import Iterable
+import json
 import math
 
 from google.api_core import gapic_v1, grpc_helpers, grpc_helpers_async, path_template
@@ -31,11 +33,14 @@ import google.auth
 from google.auth import credentials as ga_credentials
 from google.auth.exceptions import MutualTLSChannelError
 from google.oauth2 import service_account
+from google.protobuf import json_format
 from google.rpc import status_pb2  # type: ignore
 import grpc
 from grpc.experimental import aio
 from proto.marshal.rules.dates import DurationRule, TimestampRule
 import pytest
+from requests import PreparedRequest, Request, Response
+from requests.sessions import Session
 
 from google.cloud.mediatranslation_v1beta1.services.speech_translation_service import (
     SpeechTranslationServiceAsyncClient,
@@ -95,6 +100,7 @@ def test__get_default_mtls_endpoint():
     [
         (SpeechTranslationServiceClient, "grpc"),
         (SpeechTranslationServiceAsyncClient, "grpc_asyncio"),
+        (SpeechTranslationServiceClient, "rest"),
     ],
 )
 def test_speech_translation_service_client_from_service_account_info(
@@ -110,7 +116,11 @@ def test_speech_translation_service_client_from_service_account_info(
         assert client.transport._credentials == creds
         assert isinstance(client, client_class)
 
-        assert client.transport._host == ("mediatranslation.googleapis.com:443")
+        assert client.transport._host == (
+            "mediatranslation.googleapis.com:443"
+            if transport_name in ["grpc", "grpc_asyncio"]
+            else "https://mediatranslation.googleapis.com"
+        )
 
 
 @pytest.mark.parametrize(
@@ -118,6 +128,7 @@ def test_speech_translation_service_client_from_service_account_info(
     [
         (transports.SpeechTranslationServiceGrpcTransport, "grpc"),
         (transports.SpeechTranslationServiceGrpcAsyncIOTransport, "grpc_asyncio"),
+        (transports.SpeechTranslationServiceRestTransport, "rest"),
     ],
 )
 def test_speech_translation_service_client_service_account_always_use_jwt(
@@ -143,6 +154,7 @@ def test_speech_translation_service_client_service_account_always_use_jwt(
     [
         (SpeechTranslationServiceClient, "grpc"),
         (SpeechTranslationServiceAsyncClient, "grpc_asyncio"),
+        (SpeechTranslationServiceClient, "rest"),
     ],
 )
 def test_speech_translation_service_client_from_service_account_file(
@@ -165,13 +177,18 @@ def test_speech_translation_service_client_from_service_account_file(
         assert client.transport._credentials == creds
         assert isinstance(client, client_class)
 
-        assert client.transport._host == ("mediatranslation.googleapis.com:443")
+        assert client.transport._host == (
+            "mediatranslation.googleapis.com:443"
+            if transport_name in ["grpc", "grpc_asyncio"]
+            else "https://mediatranslation.googleapis.com"
+        )
 
 
 def test_speech_translation_service_client_get_transport_class():
     transport = SpeechTranslationServiceClient.get_transport_class()
     available_transports = [
         transports.SpeechTranslationServiceGrpcTransport,
+        transports.SpeechTranslationServiceRestTransport,
     ]
     assert transport in available_transports
 
@@ -191,6 +208,11 @@ def test_speech_translation_service_client_get_transport_class():
             SpeechTranslationServiceAsyncClient,
             transports.SpeechTranslationServiceGrpcAsyncIOTransport,
             "grpc_asyncio",
+        ),
+        (
+            SpeechTranslationServiceClient,
+            transports.SpeechTranslationServiceRestTransport,
+            "rest",
         ),
     ],
 )
@@ -349,6 +371,18 @@ def test_speech_translation_service_client_client_options(
             SpeechTranslationServiceAsyncClient,
             transports.SpeechTranslationServiceGrpcAsyncIOTransport,
             "grpc_asyncio",
+            "false",
+        ),
+        (
+            SpeechTranslationServiceClient,
+            transports.SpeechTranslationServiceRestTransport,
+            "rest",
+            "true",
+        ),
+        (
+            SpeechTranslationServiceClient,
+            transports.SpeechTranslationServiceRestTransport,
+            "rest",
             "false",
         ),
     ],
@@ -557,6 +591,11 @@ def test_speech_translation_service_client_get_mtls_endpoint_and_cert_source(
             transports.SpeechTranslationServiceGrpcAsyncIOTransport,
             "grpc_asyncio",
         ),
+        (
+            SpeechTranslationServiceClient,
+            transports.SpeechTranslationServiceRestTransport,
+            "rest",
+        ),
     ],
 )
 def test_speech_translation_service_client_client_options_scopes(
@@ -596,6 +635,12 @@ def test_speech_translation_service_client_client_options_scopes(
             transports.SpeechTranslationServiceGrpcAsyncIOTransport,
             "grpc_asyncio",
             grpc_helpers_async,
+        ),
+        (
+            SpeechTranslationServiceClient,
+            transports.SpeechTranslationServiceRestTransport,
+            "rest",
+            None,
         ),
     ],
 )
@@ -786,6 +831,31 @@ async def test_streaming_translate_speech_async_from_dict():
     await test_streaming_translate_speech_async(request_type=dict)
 
 
+def test_streaming_translate_speech_rest_no_http_options():
+    client = SpeechTranslationServiceClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="rest",
+    )
+    request = media_translation.StreamingTranslateSpeechRequest()
+    requests = [request]
+    with pytest.raises(RuntimeError):
+        client.streaming_translate_speech(requests)
+
+
+def test_streaming_translate_speech_rest_error():
+    client = SpeechTranslationServiceClient(
+        credentials=ga_credentials.AnonymousCredentials(), transport="rest"
+    )
+    # Since a `google.api.http` annotation is required for using a rest transport
+    # method, this should error.
+    with pytest.raises(RuntimeError) as runtime_error:
+        client.streaming_translate_speech({})
+    assert (
+        "Cannot define a method without a valid 'google.api.http' annotation."
+        in str(runtime_error.value)
+    )
+
+
 def test_credentials_transport_error():
     # It is an error to provide credentials and a transport instance.
     transport = transports.SpeechTranslationServiceGrpcTransport(
@@ -867,6 +937,7 @@ def test_transport_get_channel():
     [
         transports.SpeechTranslationServiceGrpcTransport,
         transports.SpeechTranslationServiceGrpcAsyncIOTransport,
+        transports.SpeechTranslationServiceRestTransport,
     ],
 )
 def test_transport_adc(transport_class):
@@ -881,6 +952,7 @@ def test_transport_adc(transport_class):
     "transport_name",
     [
         "grpc",
+        "rest",
     ],
 )
 def test_transport_kind(transport_name):
@@ -1008,6 +1080,7 @@ def test_speech_translation_service_transport_auth_adc(transport_class):
     [
         transports.SpeechTranslationServiceGrpcTransport,
         transports.SpeechTranslationServiceGrpcAsyncIOTransport,
+        transports.SpeechTranslationServiceRestTransport,
     ],
 )
 def test_speech_translation_service_transport_auth_gdch_credentials(transport_class):
@@ -1109,11 +1182,23 @@ def test_speech_translation_service_grpc_transport_client_cert_source_for_mtls(
             )
 
 
+def test_speech_translation_service_http_transport_client_cert_source_for_mtls():
+    cred = ga_credentials.AnonymousCredentials()
+    with mock.patch(
+        "google.auth.transport.requests.AuthorizedSession.configure_mtls_channel"
+    ) as mock_configure_mtls_channel:
+        transports.SpeechTranslationServiceRestTransport(
+            credentials=cred, client_cert_source_for_mtls=client_cert_source_callback
+        )
+        mock_configure_mtls_channel.assert_called_once_with(client_cert_source_callback)
+
+
 @pytest.mark.parametrize(
     "transport_name",
     [
         "grpc",
         "grpc_asyncio",
+        "rest",
     ],
 )
 def test_speech_translation_service_host_no_port(transport_name):
@@ -1124,7 +1209,11 @@ def test_speech_translation_service_host_no_port(transport_name):
         ),
         transport=transport_name,
     )
-    assert client.transport._host == ("mediatranslation.googleapis.com:443")
+    assert client.transport._host == (
+        "mediatranslation.googleapis.com:443"
+        if transport_name in ["grpc", "grpc_asyncio"]
+        else "https://mediatranslation.googleapis.com"
+    )
 
 
 @pytest.mark.parametrize(
@@ -1132,6 +1221,7 @@ def test_speech_translation_service_host_no_port(transport_name):
     [
         "grpc",
         "grpc_asyncio",
+        "rest",
     ],
 )
 def test_speech_translation_service_host_with_port(transport_name):
@@ -1142,7 +1232,33 @@ def test_speech_translation_service_host_with_port(transport_name):
         ),
         transport=transport_name,
     )
-    assert client.transport._host == ("mediatranslation.googleapis.com:8000")
+    assert client.transport._host == (
+        "mediatranslation.googleapis.com:8000"
+        if transport_name in ["grpc", "grpc_asyncio"]
+        else "https://mediatranslation.googleapis.com:8000"
+    )
+
+
+@pytest.mark.parametrize(
+    "transport_name",
+    [
+        "rest",
+    ],
+)
+def test_speech_translation_service_client_transport_session_collision(transport_name):
+    creds1 = ga_credentials.AnonymousCredentials()
+    creds2 = ga_credentials.AnonymousCredentials()
+    client1 = SpeechTranslationServiceClient(
+        credentials=creds1,
+        transport=transport_name,
+    )
+    client2 = SpeechTranslationServiceClient(
+        credentials=creds2,
+        transport=transport_name,
+    )
+    session1 = client1.transport.streaming_translate_speech._session
+    session2 = client2.transport.streaming_translate_speech._session
+    assert session1 != session2
 
 
 def test_speech_translation_service_grpc_transport_channel():
@@ -1413,6 +1529,7 @@ async def test_transport_close_async():
 
 def test_transport_close():
     transports = {
+        "rest": "_session",
         "grpc": "_grpc_channel",
     }
 
@@ -1430,6 +1547,7 @@ def test_transport_close():
 
 def test_client_ctx():
     transports = [
+        "rest",
         "grpc",
     ]
     for transport in transports:
