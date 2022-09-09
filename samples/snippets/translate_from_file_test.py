@@ -21,7 +21,9 @@ RESOURCES = os.path.join(os.path.dirname(__file__), "resources")
 
 
 def test_translate_streaming(capsys):
-    translate_from_file.translate_from_file(os.path.join(RESOURCES, "audio.raw"))
-    out, err = capsys.readouterr()
+    transports = ["grpc", "rest"]
+    for transport in transports:
+        translate_from_file.translate_from_file(os.path.join(RESOURCES, "audio.raw"), transport=transport)
+        out, err = capsys.readouterr()
 
-    assert re.search(r"Partial translation", out, re.DOTALL | re.I)
+        assert re.search(r"Partial translation", out, re.DOTALL | re.I)

@@ -22,8 +22,17 @@ Example usage:
 from google.cloud import mediatranslation
 
 
-def translate_from_file(file_path="path/to/your/file"):
-    client = mediatranslation.SpeechTranslationServiceClient()
+def translate_from_file(file_path: str = "path/to/your/file", transport: str = None):
+    """
+    Translate media from file.
+
+    Args:
+        file_path(str): path to your file.
+        transport(str): The transport to use. For example, "grpc"
+            or "rest". If set to None, a transport is chosen automatically.
+    """
+
+    client = mediatranslation.SpeechTranslationServiceClient(transport=transport)
 
     # The `sample_rate_hertz` field is not required for FLAC and WAV (Linear16)
     # encoded data. Other audio encodings must provide the sampling rate.
