@@ -21,6 +21,8 @@ from typing import (
     Iterable,
     Iterator,
     Mapping,
+    MutableMapping,
+    MutableSequence,
     Optional,
     Sequence,
     Tuple,
@@ -70,7 +72,7 @@ class SpeechTranslationServiceClientMeta(type):
 
     def get_transport_class(
         cls,
-        label: str = None,
+        label: Optional[str] = None,
     ) -> Type[SpeechTranslationServiceTransport]:
         """Returns an appropriate transport class.
 
@@ -323,7 +325,7 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
         self,
         *,
         credentials: Optional[ga_credentials.Credentials] = None,
-        transport: Union[str, SpeechTranslationServiceTransport, None] = None,
+        transport: Optional[Union[str, SpeechTranslationServiceTransport]] = None,
         client_options: Optional[Union[client_options_lib.ClientOptions, dict]] = None,
         client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
     ) -> None:
@@ -421,10 +423,12 @@ class SpeechTranslationServiceClient(metaclass=SpeechTranslationServiceClientMet
 
     def streaming_translate_speech(
         self,
-        requests: Iterator[media_translation.StreamingTranslateSpeechRequest] = None,
+        requests: Optional[
+            Iterator[media_translation.StreamingTranslateSpeechRequest]
+        ] = None,
         *,
         retry: OptionalRetry = gapic_v1.method.DEFAULT,
-        timeout: float = None,
+        timeout: Optional[float] = None,
         metadata: Sequence[Tuple[str, str]] = (),
     ) -> Iterable[media_translation.StreamingTranslateSpeechResponse]:
         r"""Performs bidirectional streaming speech translation:
